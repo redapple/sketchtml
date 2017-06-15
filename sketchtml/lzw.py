@@ -1,3 +1,6 @@
+import binascii
+
+
 def fingerprint(tokens, dict_limit=25, token_limit=None, debug=False):
     '''
     Paper:
@@ -33,6 +36,12 @@ def fingerprint(tokens, dict_limit=25, token_limit=None, debug=False):
     return output
 
 
+def hexfp(fingerprint):
+    return binascii.hexlify(bytes(fingerprint)).decode('ascii')
+
+
 if __name__ == '__main__':
     test = '''html, body, p, b, b, p, p, strong, strong, p, p, big, big, p, p, em, em, p, p, i, i, p, p, small, small, p, p, sub, sub, sup, sup, p, body, html'''.split(', ')
-    assert fingerprint(test) == [0, 0, 0, 0, 4, 3, 0, 3, 0, 9, 3, 0, 8, 0, 8, 0, 8, 0, 0, 19, 2]
+    fp = fingerprint(test)
+    assert fp == [0, 0, 0, 0, 4, 3, 0, 3, 0, 9, 3, 0, 8, 0, 8, 0, 8, 0, 0, 19, 2]
+    assert hexfp(fp) == '000000000403000300090300080008000800001302'
