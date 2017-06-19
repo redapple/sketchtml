@@ -14,7 +14,7 @@ from sketchtml.tree import TreeHelper
 class TestHelper(unittest.TestCase):
     """Tests tagpaths variations."""
 
-    sample = '''<!DOCTYPE html>
+    sample = u'''<!DOCTYPE html>
 <html>
   <head>
     <title>Sample page</title>
@@ -39,21 +39,8 @@ class TestHelper(unittest.TestCase):
         self.assertTrue(isinstance(tree, ET._ElementTree))
 
 
-class TestTagPaths(unittest.TestCase):
+class TestTagPaths(TestHelper):
     """Tests tagpaths variations."""
-
-    sample = '''<!DOCTYPE html>
-<html>
-  <head>
-    <title>Sample page</title>
-  </head>
-  <body>
-    <h1>Sample page</h1>
-    <p>This is a <a href="demo.html">simple</a> sample.</p>
-    <p>This is another <a href="foo.html">simple</a> paragraph!</p>
-    <!-- this is a comment -->
-  </body>
-</html>'''
 
     def setUp(self):
         """Set up test fixtures, if any."""
@@ -78,21 +65,8 @@ class TestTagPaths(unittest.TestCase):
         )
 
 
-class TestTagSequences(unittest.TestCase):
+class TestTagSequences(TestHelper):
     """Tests tag sequences variations."""
-
-    sample = '''<!DOCTYPE html>
-<html>
-  <head>
-    <title>Sample page</title>
-  </head>
-  <body>
-    <h1>Sample page</h1>
-    <p>This is a <a href="demo.html">simple</a> sample.</p>
-    <p>This is another <a href="foo.html">simple</a> paragraph!</p>
-    <!-- this is a comment -->
-  </body>
-</html>'''
 
     def setUp(self):
         """Set up test fixtures, if any."""
@@ -114,3 +88,34 @@ class TestTagSequences(unittest.TestCase):
             tagseq,
             ['html', 'head', 'title', '!title', '!head', 'body', 'h1', '!h1', 'p', 'a', '!a', '!p', 'p', 'a', '!a', '!p', '!body', '!html']
         )
+
+    def test_iter_tag_sequence(self):
+        tagseq = list(self.helper.iter_tagseq(self.sample))
+        self.assertListEqual(
+            tagseq,
+            ['html', 'head', 'title', 'title', 'head', 'body', 'h1', 'h1', 'p', 'a', 'a', 'p', 'p', 'a', 'a', 'p', 'body', 'html']
+        )
+
+    def test_iter_tag_sequence_closing_tags(self):
+        tagseq = list(self.helper.iter_tagseq(self.sample, with_closing=True))
+        self.assertListEqual(
+            tagseq,
+            ['html', 'head', 'title', '!title', '!head', 'body', 'h1', '!h1', 'p', 'a', '!a', '!p', 'p', 'a', '!a', '!p', '!body', '!html']
+        )
+
+
+class TestTagSequencesFromBytes(TestTagSequences):
+    """Tests tag sequences variations."""
+
+    sample = b'''<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sample page</title>
+  </head>
+  <body>
+    <h1>Sample page</h1>
+    <p>This is a <a href="demo.html">simple</a> sample.</p>
+    <p>This is another <a href="foo.html">simple</a> paragraph!</p>
+    <!-- this is a comment -->
+  </body>
+</html>'''
