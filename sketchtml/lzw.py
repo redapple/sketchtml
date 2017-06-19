@@ -4,11 +4,13 @@ import binascii
 def fingerprint(tokens, dict_limit=25, token_limit=None, debug=False):
     '''
     Paper: "Locality Sensitive Hashing for Scalable Structural
-            Classification and Clustering of Web Documents"
+    Classification and Clustering of Web Documents"
+
     Hachenberg, Christian; Gottron, Thomas (2013)
     https://west.uni-koblenz.de/de/forschung/datensaetze/template-detection
     https://dl.acm.org/citation.cfm?id=2505673
     '''
+
     d = {}
     dict_entry_id = 1
     buff = tuple()
