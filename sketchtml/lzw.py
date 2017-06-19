@@ -3,11 +3,11 @@ import binascii
 
 def fingerprint(tokens, dict_limit=25, token_limit=None, debug=False):
     '''
-    Paper:
+    Paper: "Locality Sensitive Hashing for Scalable Structural
+            Classification and Clustering of Web Documents"
+    Hachenberg, Christian; Gottron, Thomas (2013)
     https://west.uni-koblenz.de/de/forschung/datensaetze/template-detection
     https://dl.acm.org/citation.cfm?id=2505673
-
-    Adapted from https://github.com/vignesh-babu/Structural-Web-Document-Clustering/blob/master/src/rsl/webCluster/compression/lzw.java
     '''
     d = {}
     dict_entry_id = 1
@@ -37,11 +37,5 @@ def fingerprint(tokens, dict_limit=25, token_limit=None, debug=False):
 
 
 def hexfp(fingerprint):
-    return binascii.hexlify(bytes(fingerprint)).decode('ascii')
-
-
-if __name__ == '__main__':
-    test = '''html, body, p, b, b, p, p, strong, strong, p, p, big, big, p, p, em, em, p, p, i, i, p, p, small, small, p, p, sub, sub, sup, sup, p, body, html'''.split(', ')
-    fp = fingerprint(test)
-    assert fp == [0, 0, 0, 0, 4, 3, 0, 3, 0, 9, 3, 0, 8, 0, 8, 0, 8, 0, 0, 19, 2]
-    assert hexfp(fp) == '000000000403000300090300080008000800001302'
+    _bytes = bytearray(fingerprint)
+    return binascii.hexlify(_bytes).decode('ascii')
