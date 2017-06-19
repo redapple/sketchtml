@@ -1,3 +1,4 @@
+from io import BytesIO
 import re
 
 from lxml import etree as ET
@@ -35,6 +36,20 @@ class TreeHelper(object):
         tree = self.make_tree(text)
         for tag in self._tagseq(tree, with_closing=with_closing):
             yield tag
+
+    def iter_tagseq(self, text, with_closing=False):
+        if not isinstance(text, bytes):
+            text = text.encode('utf8')
+        for action, e in ET.iterparse(BytesIO(text),
+                                      events=("start", "end"),
+                                      tag="*",
+                                      html=True, no_network=True):
+            if isinstance(e, HtmlComment):
+                continue
+            if action == 'end' and with_closing:
+                yield self.tagseq_close + e.tag
+            else:
+                yield e.tag
 
     def _tagpaths(self, tree, predicate, strip_positional=False):
         for leaf in tree.xpath('/descendant-or-self::*{}'.format(
