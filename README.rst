@@ -36,6 +36,7 @@ References
 * `Locality Sensitive Hashing for Scalable Structural Classification and Clustering of Web Documents (2013)
   <https://www.researchgate.net/publication/256004161_Locality_Sensitive_Hashing_for_Scalable_Structural_Classification_and_Clustering_of_Web_Documents>`__
 * `Enforcing k-anonymity in Web Mail Auditing -- Mail-Hash (2016) <http://dl.acm.org/citation.cfm?id=2835803>`__
+  (`patent <http://www.freepatentsonline.com/y2017/0169251.html>`__)
 * `Structural Clustering of Machine-Generated Mail (2016) <http://dl.acm.org/citation.cfm?id=2983350>`__
 * `Web-Scale Information Extraction with Vertex (2011) <http://dl.acm.org/citation.cfm?id=2005642>`__
 
