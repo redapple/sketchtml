@@ -13,12 +13,12 @@ matrix:
       env: TOXENV=py36
 install: pip install tox
 script: tox
-#deploy:
-#  provider: pypi
-#  user: redapple
-#  password:
-#    secure: INzTSDh+myoL1bBNvznSGk1qiFAbKNyixoAXDOk7R00rQA5eEvlsU2ncJH1po5dWKzauzG0FV05JgTrjJuMOxponjRgaIjpuwU8gl5eEvvYQxpNmDYaHTOJOsm0oY6SuoBCC4oJmMYnhqn778e//9JrIdYcGlECzS1oBkbYersE8HK/ZDT1aXKI7PEP55W/xoyqgQMOF3siYYNzX0r4u9fAByuS3mBJEcgp7RaveZ5z4vVhaJM4hlImcwkmbGI+W3uKrQ8bAvW5Os9bb5vA2L8+K7rX98y43b83KxrSfbNhhQwfm/yvH/bHjqcwZGL7H+myEknmxjdWis+dKSEL4eFR0g0IvHdv56ZfZM9RS8Qdq4mtklKYNKHdu9XlV+m8en1gjEOCcb7VYG0myItyHTHck29aDY9yaBsNrPosU+MN35PQ29iFggP+O20HMVBE03S+o6BuxtEJqITA9/GvxoTYtL/uiQj8Gw0tfqn6fsNVsx8k/8glM2jd1Jy6wIN479A46jd4lFNsj4gM89twsKaIYpWgF8zaLHyrCy8Ukw2Krd/M+yNQR5xBIr6bnkj6zz2gatzOPBQn5FV0OVCMzW4tjPP2eu+WeVJVMdFmeyWUX/1Ckaz3o0ClHYnTJFkIfqbnjmWMnymn5tYnxL4wE7BQYMHCUM6YF8LkxYnJZsxg=
-#  on:
-#    tags: true
-#    distributions: sdist bdist_wheel
-#    repo: redapple/sketchtml
+deploy:
+  provider: pypi
+  distributions: sdist bdist_wheel
+  user: redapple
+  password:
+    secure: INzTSDh+myoL1bBNvznSGk1qiFAbKNyixoAXDOk7R00rQA5eEvlsU2ncJH1po5dWKzauzG0FV05JgTrjJuMOxponjRgaIjpuwU8gl5eEvvYQxpNmDYaHTOJOsm0oY6SuoBCC4oJmMYnhqn778e//9JrIdYcGlECzS1oBkbYersE8HK/ZDT1aXKI7PEP55W/xoyqgQMOF3siYYNzX0r4u9fAByuS3mBJEcgp7RaveZ5z4vVhaJM4hlImcwkmbGI+W3uKrQ8bAvW5Os9bb5vA2L8+K7rX98y43b83KxrSfbNhhQwfm/yvH/bHjqcwZGL7H+myEknmxjdWis+dKSEL4eFR0g0IvHdv56ZfZM9RS8Qdq4mtklKYNKHdu9XlV+m8en1gjEOCcb7VYG0myItyHTHck29aDY9yaBsNrPosU+MN35PQ29iFggP+O20HMVBE03S+o6BuxtEJqITA9/GvxoTYtL/uiQj8Gw0tfqn6fsNVsx8k/8glM2jd1Jy6wIN479A46jd4lFNsj4gM89twsKaIYpWgF8zaLHyrCy8Ukw2Krd/M+yNQR5xBIr6bnkj6zz2gatzOPBQn5FV0OVCMzW4tjPP2eu+WeVJVMdFmeyWUX/1Ckaz3o0ClHYnTJFkIfqbnjmWMnymn5tYnxL4wE7BQYMHCUM6YF8LkxYnJZsxg=
+  on:
+    tags: true
+    repo: redapple/sketchtml
