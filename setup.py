@@ -21,7 +21,7 @@ test_requirements = []
 
 setup(
     name='sketchtml',
-    version='0.0.1',
+    version='0.0.2',
     description="Helper library to experiment with HTML fingerprinting.",
     long_description=readme + '\n\n' + history,
     author="Paul Tremberth",
