@@ -64,6 +64,13 @@ class TestTagPaths(TestHelper):
             ['/html/head/title', '/html/body/h1', '/html/body/p', '/html/body/p/a', '/html/body/p', '/html/body/p/a']
         )
 
+    def test_iter_tagpaths(self):
+        tagpaths = list(self.helper.iter_tagpaths(self.sample))
+        self.assertListEqual(
+            tagpaths,
+            ['/html/head/title', '/html/body/h1', '/html/body/p', '/html/body/p/a', '/html/body/p', '/html/body/p/a']
+        )
+
 
 class TestTagSequences(TestHelper):
     """Tests tag sequences variations."""

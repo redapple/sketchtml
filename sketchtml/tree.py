@@ -1,3 +1,4 @@
+from collections import defaultdict, deque, namedtuple
 from io import BytesIO
 import re
 
@@ -8,10 +9,15 @@ from lxml.html import fromstring, HtmlComment
 _re_xpath_positional = re.compile('\[\d+\]')
 
 
+Node = namedtuple('Node', 'tag doc_order child_position attribs')
+
+
 class TreeHelper(object):
 
+    tagpath_prefix = '/'
     tagpath_join = '/'
     tagseq_close = '!'
+
 
     def __init__(self, textonly=True, textpaths=False):
         self.textonly = textonly
@@ -31,6 +37,43 @@ class TreeHelper(object):
         for path in self._tagpaths(tree, predicate,
                                    strip_positional=strip_positional):
             yield path
+
+    def iter_tagpaths(self, text, strip_positional=False, node_repr=lambda n: n.tag):
+        if not isinstance(text, bytes):
+            text = text.encode('utf8')
+        # a few state variables
+        doc_order = 1
+        # current path from root
+        path = deque()
+        # stack holding children counts per tag
+        ancestors = deque()
+        children_counts = defaultdict(int)
+        ancestors.append(children_counts)
+        for action, e in ET.iterparse(BytesIO(text),
+                                      events=("start", "end"),
+                                      tag="*",
+                                      html=True, no_network=True):
+            if isinstance(e, HtmlComment):
+                continue
+            if action == 'start':
+                tag = e.tag
+                doc_order += 1
+                children_counts[tag] += 1
+                n = Node(e.tag,
+                         doc_order=doc_order,
+                         child_position=children_counts[tag],
+                         attribs=dict(e.attrib))
+                path.append(n)
+                if self.textonly and e.text.strip():
+                    yield self.tagpath_prefix + self.tagpath_join.join(map(node_repr, path))
+
+                children_counts = defaultdict(int)
+                ancestors.append(children_counts)
+
+            elif action == 'end':
+                path.pop()
+                ancestors.pop()
+                children_counts = ancestors[-1]
 
     def tagseq(self, text, with_closing=False):
         tree = self.make_tree(text)
