@@ -53,6 +53,7 @@ class TreeHelper(object):
                                       events=("start", "end"),
                                       tag="*",
                                       html=True, no_network=True):
+
             if isinstance(e, HtmlComment):
                 continue
             if action == 'start':
@@ -64,8 +65,9 @@ class TreeHelper(object):
                          child_position=children_counts[tag],
                          attribs=dict(e.attrib))
                 path.append(n)
-                if self.textonly and e.text.strip():
-                    yield self.tagpath_prefix + self.tagpath_join.join(map(node_repr, path))
+                if not self.textonly or e.text.strip():
+                    if tag != 'script':
+                        yield self.tagpath_prefix + self.tagpath_join.join(map(node_repr, path))
 
                 children_counts = defaultdict(int)
                 ancestors.append(children_counts)
