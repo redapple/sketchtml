@@ -177,7 +177,7 @@ class TagPathClustering(object):
                 output += '#'+ids
 
         if classes:
-            if strip_digits or True:
+            if strip_digits:
                 output += ''.join('[class*="{}"]'.format(cls) for cls in sorted(classes))
             else:
                 output += ''.join('.{}'.format(cls) for cls in sorted(classes))
