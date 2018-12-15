@@ -9,7 +9,7 @@ from lxml.html import fromstring, HtmlComment
 _re_xpath_positional = re.compile('\[\d+\]')
 
 
-Node = namedtuple('Node', 'tag doc_order child_position attribs')
+Node = namedtuple('Node', 'tag doc_order child_position attribs element')
 
 
 class TreeHelper(object):
@@ -38,7 +38,11 @@ class TreeHelper(object):
                                    strip_positional=strip_positional):
             yield path
 
-    def iter_tagpaths(self, text, strip_positional=False, node_repr=lambda n: n.tag):
+    def iter_tagpaths(self, text, node_repr=lambda n: n.tag):
+        for nodepath in self.iter_nodepaths(text):
+            yield self.tagpath_prefix + self.tagpath_join.join(map(node_repr, nodepath))
+
+    def iter_nodepaths(self, text, keep_element_refs=False):
         if not isinstance(text, bytes):
             text = text.encode('utf8')
         # a few state variables
@@ -53,9 +57,10 @@ class TreeHelper(object):
                                       events=("start", "end"),
                                       tag="*",
                                       html=True, no_network=True):
-
+            # we skip comments but they could hold some information
             if isinstance(e, HtmlComment):
                 continue
+
             if action == 'start':
                 tag = e.tag
                 doc_order += 1
@@ -63,11 +68,11 @@ class TreeHelper(object):
                 n = Node(e.tag,
                          doc_order=doc_order,
                          child_position=children_counts[tag],
-                         attribs=dict(e.attrib))
+                         attribs=dict(e.attrib),
+                         element=e if keep_element_refs else None)
                 path.append(n)
                 if not self.textonly or e.text.strip():
-                    if tag != 'script':
-                        yield self.tagpath_prefix + self.tagpath_join.join(map(node_repr, path))
+                    yield tuple(path)
 
                 children_counts = defaultdict(int)
                 ancestors.append(children_counts)
