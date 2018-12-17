@@ -198,7 +198,7 @@ class TagPathClustering(object):
         self.tagpaths = []
         self.tagpath_nodes = defaultdict(list)
         for nodes in self.treehelper.iter_nodepaths(self.htmltext, keep_element_refs=True):
-            if nodes[-1].tag in ('script',):
+            if nodes[-1].tag in ('script', 'style'):
                 continue
             tagpath = '/' + '/'.join(map(_node_repr, nodes))
             self.tagpaths.append(tagpath)
