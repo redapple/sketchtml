@@ -9,7 +9,10 @@ from lxml.html import fromstring, HtmlComment
 _re_xpath_positional = re.compile('\[\d+\]')
 
 
-Node = namedtuple('Node', 'tag doc_order child_position attribs element')
+_Node = namedtuple('_Node', 'tag doc_order child_position attribs element')
+class Node(_Node):
+    def __hash__(self):
+       return hash(self.element)
 
 
 class TreeHelper(object):
