@@ -148,6 +148,8 @@ class TagPathClustering(object):
         clusters = defaultdict(list)
         for i, p in enumerate(pred):
             clusters[p].append(repeating_tagpaths[i])
+        for p in clusters.keys():
+            clusters[p] = sorted(clusters[p])
         return clusters
 
     def plot_affinity_matrix(self):
