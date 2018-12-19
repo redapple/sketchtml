@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PyData Berlin 2015 | May 29-30</title>
+<meta name="Description" content="PyData is the home for all things related to the use of Python in data management and analysis. It brings together Python enthusiasts at a novice level and includes Tutorials and corresponding talks as well as advanced talks by experts and package developers. The conference not only focuses on the application of data science tools but also on underlying algorithms and patterns. After a very successful PyData Berlin 2014 hosted at the BCC we are thrilled to announce PyData Berlin 2015, this time taking place at Betahaus Berlin.">
+<meta name="Keywords" content="PyData Berlin 2015 Python Big Data Analytics Spark PySpark Pandas NumFocus Conda NumPy SciPy conference MeetUp">
+<link rel="stylesheet" href="static/stylesheets/foundation.css" />
+<link rel="stylesheet" href="static/stylesheets/app.css" />
+<link rel="shortcut icon" href="static/img/favicon.ico">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery-latest.min.js"></script>
+<script src="//unslider.com/unslider.min.js"></script>
+<script src="static/javascripts/app.js"></script>
+
+<script>
+$(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+				var target = $(this.hash);
+				target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+					if (target.length) {
+						scrollPosition = target.offset().top - $('.fixed').height();
+						$('html,body').animate({
+							scrollTop: scrollPosition
+						}, 1000);
+						return false;
+					}
+	            }
+            });
+        });
+
+$(document).ready(function(){
+    topResize();
+	if(window.innerWidth < 1025){
+		$('.fixed').css('margin-left', 0);
+		$('.mainBanner').removeClass('fixed');
+		$('#banner').css('margin-top', 0);
+		$('#background').hide();
+		$('#banner').hide();
+	}else{
+		$('.mainBanner').addClass('fixed');
+		$('.fixed').css('margin-left', -$('.fixed').width()/2);
+		$('#banner').css('margin-top', $('.fixed').height());
+		$('#background').show();
+		$('#banner').show();
+	}
+});	
+
+$(window).resize(function(){
+	topResize();
+	if(window.innerWidth < 1025){
+		$('.fixed').css('margin-left', 0);
+		$('.mainBanner').removeClass('fixed');
+		$('#banner').css('margin-top', 0);
+		$('#background').hide();
+		$('#banner').hide();
+	}else{
+		$('.mainBanner').addClass('fixed');
+		$('.fixed').css('margin-left', -$('.fixed').width()/2);
+		$('#banner').css('margin-top', $('.fixed').height());
+		$('#background').show();
+		$('#banner').show();
+	}
+});
+
+function topResize(){
+	$('.fixed').css('margin-left', -$('.fixed').width()/2);
+	$('#banner').css('margin-top', $('.fixed').height());
+	$('#background').css('height', $('.fixed').height());
+};
+
+$(function() {
+    $('.banner').unslider({
+	speed: 1000,               //  The speed to animate each slide (in milliseconds)
+	delay: 5000,              //  The delay between slide animations (in milliseconds)
+	complete: function() {},  //  A function that gets called after every slide animation
+	keys: true,               //  Enable keyboard (left, right) arrow shortcuts
+	dots: true,               //  Display dot navigation
+	fluid: true              //  Support responsive design. May break non-responsive designs
+});
+});
+
+</script>
+<style>
+.fixed{
+	position:fixed;
+	left:50%;
+	z-index:150;
+}#background{
+	position:fixed;
+	left:0;
+	width:100%;
+	background:url(static/img/trDot.png) repeat;
+}.button-group li:first-of-type a{
+	border-bottom-left-radius:3px;
+}.button-group li:last-of-type a{
+	border-bottom-right-radius:3px;
+}#banner{
+	padding:1em 0 !important;
+}.banner{
+	position:relative; 
+	overflow:auto;
+	background:url(static/img/berlin-bg_cut.jpg) center;
+	background-size:cover;
+	border-radius:3px;
+}.banner li{
+	list-style:none;
+	height:495px;
+	text-align:left;
+}.banner ul li{
+	float:left;
+	margin-top:120px;
+	font-size:60px;
+	color:#f9f9f9;
+	text-shadow:1px 1px 0px #000;
+}.banner a{
+    color:#f9f9f9;
+}
+</style>
+</head>
+
+  <body>
+    <a name="top"></a>
+    <div class="row fixed mainBanner">
+      <div id="background"></div>
+        <div class="large-3 columns">
+            <a href="index.html#top"><img src="static/img/PyDataBerlin-2015.png"></a>
+        </div>
+        
+        <div class="large-9 columns">
+          <ul class="button-group show-for-small-only">
+            <li><a href="https://www.eventbrite.com/e/pydata-berlin-2015-tickets-16284071095" class="tiny button">Register</a></li>
+            <li><a href="/berlin2015/#venue" class="tiny button">Venue</a></li>
+            <li><a href="/berlin2015/#news" class="tiny button">News</a></li>
+            <li><a href="speakers.html" class="tiny button">Speakers</a></li>
+            <li><a href="schedule.html" class="tiny button">Schedule</a></li>
+          </ul>
+          
+          <ul class="button-group show-for-medium-up right">
+            <li><a href="https://www.eventbrite.com/e/pydata-berlin-2015-tickets-16284071095" class="button">Register</a></li>
+            <li><a href="/berlin2015/#venue" class="button">Venue</a></li>
+            <li><a href="/berlin2015/#news" class="button">News</a></li>
+            <li><a href="speakers.html" class="button">Speakers</a></li>
+            <li><a href="schedule.html" class="button">Schedule</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+<div class="row" id="content" style="margin-top: 115px;">
+    <div class="large-10 columns">
+        <div class="flatblock-content">
+            <h1>Schedule</h1>
+
+            <div class="row">
+                <div class="medium-12 large-12 columns">
+                    <h2>Friday</h2>
+                </div>
+                <div class="medium-12 large-12 columns">
+                    &nbsp; 
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    8:30
+                </div>
+                <div class="medium-10 large-10 columns type-break">
+                    Breakfast and Registration<br><br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    9:30
+                </div>
+                <div class="medium-10 large-10 columns type-keynote">
+                    <a href="speakers.html#rocklin_0" class="schedule-title"><b>Blaze</b><br>
+                    Matthew Rocklin<br>
+                    (Keynote, 9:30) 
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    10:20
+                </div>
+                <div class="medium-5 large-5 columns type-tutorial">
+                    <a href="speakers.html#doig_0" class="schedule-title"><b>Bokeh: Interactive Data Visualizations with Python</b><br>
+                    Christine Doig<br>
+                    (Tutorial, 10:20)<br><br><br><br><br><br><br><br><br><br><br>
+                    </a>
+                </div>
+                <div class="medium-5 large-5 columns type-talk">
+                    <div class="type-talk">
+                        <a href="speakers.html#haenel_0" class="schedule-title"><b>Blosc</b><br>
+                        Valentin Haenel<br>
+                        (10:20)
+                    </a>
+                    </div>
+                    <br>
+                    <div class="type-talk">
+                        <a href="speakers.html#balzer_1" class="schedule-title"><b>Running, walking, sitting or biking? - Motion prediction with acceleration and rotationrates</b><br>
+                        Paul Balzer<br>
+                        (11:00)
+                    </a>
+                    </div>
+                    <br>
+                    <div class="type-talk">
+                        <a href="speakers.html#abert_0" class="schedule-title"><b>Scientific computing with Python: Tools for the solution of continuous problems</b><br>
+                        Claas Abert<br>
+                        (11:40)
+                    </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    12:30
+                </div>
+                <div class="medium-10 large-10 columns type-break">
+                    Lunch<br><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    13:30
+                </div>
+                <div class="medium-5 large-5 columns type-tutorial">
+                    <a href="speakers.html#mueller_0" class="schedule-title"><b>Measure, don't Guess - How to find out if and where to optimize</b><br>
+                    Mike M&uuml;ller<br>
+                    (Tutorial, 13:30)<br><br><br><br><br><br>
+                    </a>
+                </div>
+                <div class="medium-5 large-5 columns type-talk">
+                    <div class="type-talk">
+                        <a href="speakers.html#selvaraj_0" class="schedule-title"><b>Real-Time Monitoring of Distributed Systems</b><br>
+                        Tobias Kuhn, Nakul Selvaraj<br>
+                        (13:30)
+                    </a>
+                    </div>
+                    <br>
+                    <div class="type-talk">
+                        <a href="speakers.html#balzer_0" class="schedule-title"><b>Analysing and predicting inner-city parking space occupancy</b><br>
+                        Paul Balzer<br>
+                        (14:10)
+                    </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    14:50
+                </div>
+                <div class="medium-10 large-10 columns type-break">
+                    Break and Snacks
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    15:10
+                </div>
+                <div class="medium-5 large-5 columns type-tutorial">
+                    <a href="speakers.html#mueller_0" class="schedule-title"><b>Measure, don't Guess - How to find out if and where to optimize II</b><br>
+                    <br><br><br><br><br><br><br>
+                </div>
+                <div class="medium-5 large-5 columns type-talk">
+                    <div class="type-talk">
+                        <a href="speakers.html#kagoshima_0" class="schedule-title"><b>A Data Science Operationalization Framework</b><br>
+                        Alexander Kagoshima<br>
+                        (15:10)
+                    </a>
+                    </div>
+                    <br>
+                    <div class="type-talk">
+                        <a href="speakers.html#obst_0" class="schedule-title"><b>Smart cars of tomorrow: real-time driving patterns</b><br>
+                        Ronert Obst<br>
+                        (15:50)
+                    </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    16:30
+                </div>
+                <div class="medium-10 large-10 columns type-keynote">
+                    Lightning Talks<br><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    17:30
+                </div>
+                <div class="medium-10 large-10 columns type-break">
+                    Get Together<br><br>
+                </div>
+            </div>
+
+            <p><br></p>
+
+            <div class="row">
+                <div class="medium-12 large-12 columns">
+                    <h2>Saturday</h2>
+                </div>
+                <div class="medium-12 large-12 columns">
+                    &nbsp; 
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    8:30
+                </div>
+                <div class="medium-10 large-10 columns type-break">
+                    Breakfast<br><br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    9:30
+                </div>
+                <div class="medium-10 large-10 columns type-keynote">
+                    <a href="speakers.html#mcconaghy_0" class="schedule-title"><b>Rewiring the Internet for Ownership with Big Data and Blockchains</b><br>
+                    Trent McConaghy<br>
+                    (Keynote, 9:30) 
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    10:20
+                </div>
+                <div class="medium-5 large-5 columns type-tutorial">
+                    <a href="speakers.html#bellemare_0" class="schedule-title"><b>Learning to use Docker for development</b><br>
+                    Sylvain Bellemare<br>
+                    (Tutorial, 10:20)<br><br><br><br><br><br><br><br><br>
+                    </a>
+                </div>
+                <div class="medium-5 large-5 columns type-talk">
+                    <div class="type-talk">
+                        <a href="speakers.html#pino_0" class="schedule-title"><b>Lessons learned from applying PyData to our marketing organization</b><br>
+                        Jose Luis Lopez Pino<br>
+                        (10:20)
+                    </a>
+                    </div>
+                    <br>
+                    <div class="type-talk">
+                        <a href="speakers.html#boehm_0" class="schedule-title"><b>What people need to be happy at work & how you can influence a diverse team environment</b><br>
+                        Lea B&ouml;hm<br>
+                        (11:00)
+                    </a>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    11:50
+                </div>
+                <div class="medium-10 large-10 columns type-talk">
+                    Panel Discussion<br><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    12:30
+                </div>
+                <div class="medium-10 large-10 columns type-break">
+                    Lunch<br><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    13:30
+                </div>
+                <div class="medium-10 large-10 columns type-keynote">
+                    <a href="speakers.html#wick_0" class="schedule-title"><b>From the Life of a Data Scientist</b><br>
+                    Felix Wick<br>
+                    (Keynote, 13:30) 
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    14:20
+                </div>
+                <div class="medium-5 large-5 columns type-tutorial">
+                    <a href="speakers.html#pfaff_0" class="schedule-title"><b>Advanced Data Storage</b><br>
+                    Thomas Pfaff<br>
+                    (Tutorial, 14:20)<br><br><br><br><br><br>
+                    </a>
+                </div>
+                <div class="medium-5 large-5 columns type-talk">
+                    <div class="type-talk">
+                        <a href="speakers.html#coyle_0" class="schedule-title"><b>Probabilistic Programming in Sports Analytics</b><br>
+                        Peadar Coyle<br>
+                        (14:20)
+                    </a>
+                    </div>
+                    <br>
+                    <div class="type-talk">
+                        <a href="speakers.html#hoffmann_0" class="schedule-title"><b>Indroduction to the PySpark DataFrame API</b><br>
+                        Peter Hoffmann<br>
+                        (15:00)
+                    </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    15:50
+                </div>
+                <div class="medium-10 large-10 columns type-break">
+                    Break and Snacks
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    16:10
+                </div>
+                <div class="medium-5 large-5 columns type-tutorial">
+                    <div class="type-tutorial">
+                        <a href="speakers.html#pahl_0" class="schedule-title"><b>Peachbox: Agile and Accessible Big ETL Framework</b><br>
+                        Philipp Pahl<br>
+                        (Tutorial, 16:10)
+                        </a>
+                        <br><br><br><br><br><br>
+                    </div>
+                </div>
+                <div class="medium-5 large-5 columns type-talk">
+                    <div class="type-talk">
+                        <a href="speakers.html#bahnsen_0" class="schedule-title"><b>CostCla a cost-sensitive classification library</b><br>
+                        Alejandro Correa Bahnsen<br>
+                        (16:10)
+                    </a>
+                    </div>
+                    <br>
+                    <div class="type-talk">
+                        <a href="speakers.html#cabrera_0" class="schedule-title"><b>Processing Hotel  Reviews with Python</b><br>
+                        Miguel Fernando Cabrera<br>
+                        (16:50)<br><br>
+                    </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                   17:40
+                </div>
+                <div class="medium-5 large-5 columns type-talk">
+                    <div class="type-talk">
+                        <a href="speakers.html#elola_0" class="schedule-title"><b>Python as a Framework for Analytics and Growth Hacking</b><br>
+                        Ignacio Elola<br>
+                        (17:40)
+                    </div>
+                </div>
+                <div class="medium-5 large-5 columns type-talk">
+                    <div class="type-talk">
+                        <a href="speakers.html#carter_0" class="schedule-title"><b>Lifecycle of Web Text Mining: Scrape to Sense</b><br>
+                        Brian Carter<br>
+                        (17:40)
+                    </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-2 large-2 columns">
+                    18:20
+                </div>
+                <div class="medium-10 large-10 columns type-break">
+                    Get Together<br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="large-2 columns">
+    <h4 class="text-center">Sponsors</h4>
+    <hr>
+    <h5 class="text-center">Silver</h5>
+    <a href="http://www.blue-yonder.com/" target="_blank">
+      <img src="static/assets/sponsors/blue_yonder_logo.jpg" alt="Blue Yonder Logo">
+    </a>
+    <a href="http://python-verband.org/" target="_blank">
+      <img src="static/assets/sponsors/python_software_verband.png" alt="Python Software Verband e.V.">
+    </a>
+    <h5 class="text-center">Supporting</h5>
+    <a href="http://www.python-academy.com/" target="_blank">
+      <img src="static/assets/sponsors/python_academy_logo.png" alt="Python Academy Logo">
+    </a>
+    <a href="http://www.unbelievable-machine.com/" target="_blank">
+      <img src="static/assets/sponsors/um-logo.jpg" alt="The Unbelievable Machine Company Logo">
+    </a>
+    <a href="http://www.eyequant.com/" target="_blank">
+      <img src="static/assets/sponsors/eyequant_logo.png" alt="EyeQuant Logo">
+    </a>
+    <a href="https://plot.ly/" target="_blank">
+      <img src="static/assets/sponsors/plotly.png" alt="plotly Logo">
+    </a>
+    <h5 class="text-center">Founding Sponsor</h5>
+    <a href="http://continuum.io/" target="_blank">
+      <img src="static/assets/sponsors/ContinuumAnalyticsLogo.png" alt="Continuum Analytics Logo">
+    </a>
+    <h5 class="text-center">Location Sponsor</h5>
+    <a href="http://www.betahaus.com/berlin" target="_blank">
+      <img src="static/assets/sponsors/betahaus-logo-retina.png" alt="Betahaus Logo">
+    </a>
+    <h5 class="text-center"><a href="http://pydata.org/sponsor/info">Become a sponsor</a></h5>
+</div>
+
+</div>
+
+
+<footer class="row">
+    <hr/>
+    <div class="large-8 columns">
+        <h5>The PyData Conference Series is brought to you by <a href="http://numfocus.org/">NumFOCUS Foundation</a>. </h5>
+    </div>
+    <div class="large-2 column">
+        <a href="#top">Back to top</a>
+    </div>
+</footer>
+  </body>
+</html>
+

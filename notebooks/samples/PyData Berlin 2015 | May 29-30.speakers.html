@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PyData Berlin 2015 | May 29-30</title>
+<meta name="Description" content="PyData is the home for all things related to the use of Python in data management and analysis. It brings together Python enthusiasts at a novice level and includes Tutorials and corresponding talks as well as advanced talks by experts and package developers. The conference not only focuses on the application of data science tools but also on underlying algorithms and patterns. After a very successful PyData Berlin 2014 hosted at the BCC we are thrilled to announce PyData Berlin 2015, this time taking place at Betahaus Berlin.">
+<meta name="Keywords" content="PyData Berlin 2015 Python Big Data Analytics Spark PySpark Pandas NumFocus Conda NumPy SciPy conference MeetUp">
+<link rel="stylesheet" href="static/stylesheets/foundation.css" />
+<link rel="stylesheet" href="static/stylesheets/app.css" />
+<link rel="shortcut icon" href="static/img/favicon.ico">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery-latest.min.js"></script>
+<script src="//unslider.com/unslider.min.js"></script>
+<script src="static/javascripts/app.js"></script>
+
+<script>
+$(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+				var target = $(this.hash);
+				target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+					if (target.length) {
+						scrollPosition = target.offset().top - $('.fixed').height();
+						$('html,body').animate({
+							scrollTop: scrollPosition
+						}, 1000);
+						return false;
+					}
+	            }
+            });
+        });
+
+$(document).ready(function(){
+    topResize();
+	if(window.innerWidth < 1025){
+		$('.fixed').css('margin-left', 0);
+		$('.mainBanner').removeClass('fixed');
+		$('#banner').css('margin-top', 0);
+		$('#background').hide();
+		$('#banner').hide();
+	}else{
+		$('.mainBanner').addClass('fixed');
+		$('.fixed').css('margin-left', -$('.fixed').width()/2);
+		$('#banner').css('margin-top', $('.fixed').height());
+		$('#background').show();
+		$('#banner').show();
+	}
+});	
+
+$(window).resize(function(){
+	topResize();
+	if(window.innerWidth < 1025){
+		$('.fixed').css('margin-left', 0);
+		$('.mainBanner').removeClass('fixed');
+		$('#banner').css('margin-top', 0);
+		$('#background').hide();
+		$('#banner').hide();
+	}else{
+		$('.mainBanner').addClass('fixed');
+		$('.fixed').css('margin-left', -$('.fixed').width()/2);
+		$('#banner').css('margin-top', $('.fixed').height());
+		$('#background').show();
+		$('#banner').show();
+	}
+});
+
+function topResize(){
+	$('.fixed').css('margin-left', -$('.fixed').width()/2);
+	$('#banner').css('margin-top', $('.fixed').height());
+	$('#background').css('height', $('.fixed').height());
+};
+
+$(function() {
+    $('.banner').unslider({
+	speed: 1000,               //  The speed to animate each slide (in milliseconds)
+	delay: 5000,              //  The delay between slide animations (in milliseconds)
+	complete: function() {},  //  A function that gets called after every slide animation
+	keys: true,               //  Enable keyboard (left, right) arrow shortcuts
+	dots: true,               //  Display dot navigation
+	fluid: true              //  Support responsive design. May break non-responsive designs
+});
+});
+
+</script>
+<style>
+.fixed{
+	position:fixed;
+	left:50%;
+	z-index:150;
+}#background{
+	position:fixed;
+	left:0;
+	width:100%;
+	background:url(static/img/trDot.png) repeat;
+}.button-group li:first-of-type a{
+	border-bottom-left-radius:3px;
+}.button-group li:last-of-type a{
+	border-bottom-right-radius:3px;
+}#banner{
+	padding:1em 0 !important;
+}.banner{
+	position:relative; 
+	overflow:auto;
+	background:url(static/img/berlin-bg_cut.jpg) center;
+	background-size:cover;
+	border-radius:3px;
+}.banner li{
+	list-style:none;
+	height:495px;
+	text-align:left;
+}.banner ul li{
+	float:left;
+	margin-top:120px;
+	font-size:60px;
+	color:#f9f9f9;
+	text-shadow:1px 1px 0px #000;
+}.banner a{
+    color:#f9f9f9;
+}
+</style>
+</head>
+
+  <body>
+    <a name="top"></a>
+    <div class="row fixed mainBanner">
+      <div id="background"></div>
+        <div class="large-3 columns">
+            <a href="index.html#top"><img src="static/img/PyDataBerlin-2015.png"></a>
+        </div>
+        
+        <div class="large-9 columns">
+          <ul class="button-group show-for-small-only">
+            <li><a href="https://www.eventbrite.com/e/pydata-berlin-2015-tickets-16284071095" class="tiny button">Register</a></li>
+            <li><a href="/berlin2015/#venue" class="tiny button">Venue</a></li>
+            <li><a href="/berlin2015/#news" class="tiny button">News</a></li>
+            <li><a href="speakers.html" class="tiny button">Speakers</a></li>
+            <li><a href="schedule.html" class="tiny button">Schedule</a></li>
+          </ul>
+          
+          <ul class="button-group show-for-medium-up right">
+            <li><a href="https://www.eventbrite.com/e/pydata-berlin-2015-tickets-16284071095" class="button">Register</a></li>
+            <li><a href="/berlin2015/#venue" class="button">Venue</a></li>
+            <li><a href="/berlin2015/#news" class="button">News</a></li>
+            <li><a href="speakers.html" class="button">Speakers</a></li>
+            <li><a href="schedule.html" class="button">Schedule</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+<div class="row" id="content" style="margin-top: 115px">
+  <div class="large-10 columns">
+    <a name="keynotes"><h1>Keynotes</h1></a>
+    
+    <div class="speaker-container">
+      
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/trent-mcconaghy.jpg" alt="Trent McConaghy">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=mcconaghy_0></a>
+      <h3>Trent McConaghy</h3>
+    <div class="small">ascribe</div>
+    
+    <strong>Rewiring the Internet for Ownership with Big Data and Blockchains</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://de.linkedin.com/in/trentmc" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+        <a href="https://twitter.com/trentmc0" target="_blank" class="speaker__social__item speaker__social__item--twitter">
+          <img src="static/assets/social/twitter_logo.png">
+        </a>
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          When it comes to ownership, the internet is broken. Artists, designers, and other creatives can share their work easily on the internet, but keeping it as "theirs" and get fairly compensated has proven difficult. How do you "own" something when bits can be copied freely? It turns out that visionaries of hypertext foresaw this issue in the 60s. They even proposed systems to handle this. However, those systems were too complex and hard to build. By the early 90s, the simpler WWW had won, but unfortunately in its simplicity it left out attribution to owners. We ask a new question: can we retrofit the internet for ownership? It turns out the answer is yes, with the help of python-powered big data, machine learning, and the blockchain. First, we crawl the internet and create a large scale crawl database, then preprocess all media into machine learning features. Then, creators can "register" their work onto the blockchain. Finally, we use machine learning to cross-reference registered works against the large-scale crawl database. We can do this for images, text, and even 3d designs; and it works even if the design has changed meaningfully. Python-powered big data is making it possible to revive the dream of ownership on the internet.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Trent McConaghy, PhD has been doing machine learning (ML) research since the mid 90s. He co-founded ascribe GmbH, which enables copyright protection via internet-scale ML and the blockchain. Before that, he co-founded Solido where he applied ML to circuit design; the majority of big semis now use Solido. Before that, he co-founded ADA also doing ML + circuits; it was acquired in 2004. Before that he did ML research at the Canadian Department of Defense. He has written two books and 50 papers+patents on ML. He co-organizes the Berlin ML meetup. He keynoted Data Science Day Berlin 2014, gave an invited talk at PyData Berlin 2014, and more.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/matthew-rocklin.jpg" alt="Matthew Rocklin">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=rocklin_0></a>
+      <h3>Matthew Rocklin</h3>
+    <div class="small">Continuum Analytics</div>
+    
+    <strong></strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://www.linkedin.com/pub/matthew-rocklin/23/b43/461" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+        <a href="https://twitter.com/mrocklin" target="_blank" class="speaker__social__item speaker__social__item--twitter">
+          <img src="static/assets/social/twitter_logo.png">
+        </a>
+      
+    </div>
+
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Matthew Rocklin likes numerics, mathematics, and programming paradigms. He contributes to a variety of open source projects and endeavors to demonstrate the value of abstract solutions to concrete problems. A graduate of UC Berkeley (Physics, Math) and of the University of Chicago (PhD in CS). Matthew is currently a Computational Scientist at Continuum Analytics.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/felix-wick.jpg" alt="Felix Wick">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=wick_0></a>
+      <h3>Felix Wick</h3>
+    <div class="small">Blue Yonder</div>
+    
+    <strong>From the Life of a Data Scientist</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://www.linkedin.com/pub/felix-wick/79/b3/b73" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          T. Davenport and DJ Patil have pointed out already in 2012 that Data Scientists are working in the “sexiest job of the 21st century”. Although there are plenty of imaginations what a Data Scientist actually does, core skills for this job definitely include Machine Learning, software development, and business domain expertise.<br><br>The talk will give a short tour through these key aspects and a glimpse of the working life of a Data Scientist at Blue Yonder. We build predictive applications for customers from various business fields or, to put it in another way, deliver productive data science as a service. Thereby, we make extensive use of the Python ecosystem and leverage it to overcome the two-language problem for rapid prototyping (instead of e.g. R) and productive operation (instead of e.g. C++) in different project phases.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Felix Wick leads the machine learning and core development team at Blue Yonder, a SaaS provider for predictive applications. He obtained his diploma (2008) and PhD (2011) in physics at the Karlsruhe Institute of Technology (KIT). The topic of his research was experimental particle physics with a focus on statistical data analysis. In 2011, he joined Blue Yonder as Data Scientist, building predictive analytics solutions for various customer projects. He now focuses on the development of machine learning and data science algorithms primarily based on Python.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+    </div>
+    
+    <a name="speaker"><h1>Speakers</h1></a>
+    <div class="speaker-container">
+      
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/claas-abert.jpg" alt="Claas Abert">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=abert_0></a>
+      <h3>Claas Abert</h3>
+    <div class="small">Vienna University of Technology</div>
+    
+    <strong>Scientific computing with Python: Tools for the solution of continuous problems</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Although not exactly a classical big data application, the numerical treatment of partial differential equations (PDEs) has very similar characteristics: By spatial discretization, the continuous problem is translated to linear systems and the discrete solution is represented by a vector of floating point numbers. Depending on the dimensions of the domain and the granularity of the spatial discretization, the size of the arising matrices and vectors may range from a few thousands to billions of entries. Usual operations include matrix-vector multiplications, the solution of linear systems and more complicated tasks like the solution of eigenvalue problems.<br><br>Due to usually large problem sizes, computational performance is certainly a main design goal of PDE solvers. However, when it comes to the implementation of complex PDEs or algorithms in general it is equally desirable to use high level programming tools that allow a concise domain-related problem definition.<br><br>Recently, Python gained a lot of attention in the scientific computing community that was dominated by compiled languages as Fortran and C for a long time. The reason for this development is most likely the fulfillment of the above mentioned criteria: performance and brief syntax. While the brief syntax is a feature of the language itself, Python owes its high performance the existence of excellent third party libraries such as NumPy. Many novel scientific special purpose libraries are still written in compiled languages, but come with Python wrappers and seamlessly integrate with NumPy.<br><br>The aim of this talk is to give a brief introduction to the problem domain and present a selection of Python tools and libraries for scientific computing with a focus on continuous problems.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Claas works as a research fellow at the Vienna University of Technology, where he develops simulation software for the investigation of magnetic processes at the nanoscale. He received his PhD in physics at the University of Hamburg and discovered his interest in modern scripting languages while working as a web developer for different companies.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/alejandro-correa-bahnsen.jpg" alt="Alejandro Correa Bahnsen">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=bahnsen_0></a>
+      <h3>Alejandro Correa Bahnsen</h3>
+    <div class="small">Luxembourg University</div>
+    
+    <strong>CostCla a cost-sensitive classification library</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://lu.linkedin.com/in/albahnsen" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Classification, in the context of machine learning, deals with the problem of predicting the class of a set of examples given their features. Traditionally, classification methods aim at minimizing the misclassification of examples, in which an example is misclassified if the predicted class is different from the true class. Such a traditional framework assumes that all misclassification errors carry the same cost. This is not the case in many real-world applications such as credit card fraud detection, credit scoring, churn modeling and direct marketing. In this talk I would like to present CostCla a cost-sensitive classification library. The library incorporates several cost-sensitive algorithms. Moreover, during the talk I will show the huge differences in profit when using traditional machine learning algorithms versus cost-sensitive algorithms, on several real-world databases.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Alejandro Correa Bahnsen is currently working towards a Ph.D in Machine Learning at Luxembourg University. His research area relates to cost-sensitive classification and its application in a variety of real-world problems such as fraud detection, credit risk, direct marketing and churn modeling. Also, he works part time a fraud data scientist at CETREL a SIX Company applying his research for detecting fraud. Before starting his PhD, he worked for five years as a data scientist at GE Money and Scotiabank, applying data mining models in a variety of areas from advertisement to financial risk management. He have written and published many academic and industrial papers in the best per-review publications. Moreover, Alejandro also have experience as instructor of econometrics, financial risk management and machine learning. He is also a co-organizer of the Data Science Luxembourg meetup.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/paul-balzer.jpg" alt="Paul Balzer">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=balzer_1></a>
+      <h3>Paul Balzer</h3>
+    <div class="small">MechLab Engineering</div>
+    
+    <strong>Running, walking, sitting or biking? - Motion prediction with acceleration and rotationrates</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+      
+        <a href="https://twitter.com/balzer82" target="_blank" class="speaker__social__item speaker__social__item--twitter">
+          <img src="static/assets/social/twitter_logo.png">
+        </a>
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          A lot of devices can measure acceleration and rotationrates. With the right features, Machine Learning can predict, weather you are sitting, running, walking or going by bike. This talk will show you, how to calculate features with Pandas and set up a real time classifier with SciKit-Learn. Including <a href="https://vimeo.com/mechlabengineering/activityclassification"> hardware demo</a>.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Paul Balzer is Data Analyst/CEO at MechLab Engineering and Open Data activist in Dresden.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/paul-balzer.jpg" alt="Paul Balzer">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=balzer_0></a>
+      <h3>Paul Balzer</h3>
+    <div class="small">MechLab Engineering</div>
+    
+    <strong>Analysing and predicting inner-city parking space occupancy</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+      
+        <a href="https://twitter.com/balzer82" target="_blank" class="speaker__social__item speaker__social__item--twitter">
+          <img src="static/assets/social/twitter_logo.png">
+        </a>
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          The city of Dresden has an excellent traffic monitoring and guiding system (VAMOS), which also measures the occupancy rate of city parking spaces. The data is pushed to the city's website, from which it has been scraped by Dresden's Open Data activists for the past year. This talk shows, how to analyse the data with Pandas and make predictions of future occupation with SciKit-Learn. Especially, which features are important for predicting the shopping behavior of citizens and tourists.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Paul Balzer is Data Analyst/CEO at MechLab Engineering and Open Data activist in Dresden.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/sylvain-bellemare.jpg" alt="Sylvain Bellemare">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=bellemare_0></a>
+      <h3>Sylvain Bellemare</h3>
+    <div class="small"></div>
+    
+    <strong>Learning to use Docker for development</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://www.linkedin.com/in/sylvainbellemare" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          A very simple tutorial, ideally aimed at beginners, for both Docker and scientific Python, who wish to learn the basics to be able to create and manage their own development environments, using Docker.<br><br>We'll write a Dockerfile to build a Docker image that will have a few basic scientific libraries (matplotlib, numpy, ipython/jupyter notebook). We'll run the notebook in the docker container, and then learn how to interact with the notebook.<br><br>Next step, we'll use docker-machine to run our docker container on a remote host. (This may be practical for performance reasons.)<br><br>If time allows, we may also spin up another container, running Postgres, or another data store (e.g.: Redis, Elasticsearch). We'll tie in the communication between both containers using docker-compose. We'll figure out a way of storing some data in our data store and plotting some graphs for it in the notebook.<br><br>The goal of the tutorial is to empower the developers, such that they can totally take over their own development environment, meanwhile leveraging what Docker has to offer to do so. Hence, the tutorial will adopt a pace that beginners will be able to follow, such that at the end, they will have completed a re-usable Docker-based development environment, which they may extend and modify according to theirs needs, in the future. <br><br><a href="https://goo.gl/puCqyd">Tutorial prerequisites and instructions.</a>
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Sylvain Bellemare is a software engineer, and currently works mainly with Django and Postgres. He is himself new to Docker and scientific Python. He has experience managing development environments with Vagrant, SaltStack, and VirtualBox, at work, and for fun, such as in https://github.com/sciboxes/scipybox.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/lea-b-hm.jpg" alt="Lea Böhm">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=boehm_0></a>
+      <h3>Lea Böhm</h3>
+    <div class="small">Founder of Alles Roger</div>
+    
+    <strong>What people need to be happy at work & how you can influence a diverse team environment</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://www.linkedin.com/pub/lea-b%C3%B6hm/71/6a6/20b" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          A lot of studies have investigated lately how happy and engaged people are at work. They found that a big influencer is the team atmosphere and the relationship you have with your boss. <br><br>Being engaged describes a state where you feel energized, involved and effective. Looking at the numbers, we'll find that there are only about 16% of people that are truly engaged at work. <br><br>The talk will give an insight on things that lead to a happier work environment, give inspiration for what you can do to actively shape a happy work environment and how this will establish the foundation for more diversity within your team.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Lea has studied economics, politics and sociology and has worked several years in finance and operations until she realized that people are much more interesting than numbers. Consequently she switched to people management in 2012 and became an expert for topics such as internal communication, motivation, team building and development and employer branding. She holds a degree in coaching and mediation, is the MD of BLS Venture Capital and founder of Alles Roger.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/miguel-fernando-cabrera.jpg" alt="Miguel Fernando Cabrera">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=cabrera_0></a>
+      <h3>Miguel Fernando Cabrera</h3>
+    <div class="small">TrustYou</div>
+    
+    <strong>Processing Hotel Reviews with Python</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://www.linkedin.com/in/mfcabrera" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          In this talk I will present experiences of  using a combination of Hadoop and Python to build pipelines that process large amount of textual hotel reviews in more than a dozen a languages. In particular I will show the application Word2vec (via Gensim) to extract information and cluster similar hotels based on the opinion of users.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        A Neuberliner, Miguel works as Data Scientist for TrustYou, juggling with (mostly textual) data. He obtained a M.Sc. degree Informatics from TU in Munich where he also founded and ran the Munich Datageeks, the largest ML/Data Science group in Bavaria. When not using computer Miguel enjoys playing Latin American folk music and doing martial arts.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/brian-carter.jpg" alt="Brian Carter">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=carter_0></a>
+      <h3>Brian Carter</h3>
+    <div class="small">IBM Software Group</div>
+    
+    <strong>Lifecycle of Web Text Mining: Scrape to Sense</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://ie.linkedin.com/in/brianthomascarter" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Pillreports.net is an on-line database of reviews of Ecstasy pills. In consumer theory illicit drugs are experience goods, in that the contents are not known until the time of consumption. Websites like Pillreports.net, may be viewed as an attempt to bridge that gap, as well as highlighting instances, where a particular pill is producing undesirable effects. This talk will present the experiences and insights from a text mining project using data scraped from the Pillreports.net site.<br><ul><li>The setting up and the benefits, ease of using BeautifulSoup package and pymnogo to store the data in MongoDB will be outlined.</li><li>A brief overview of some interesting parts of data cleansing will be detailed.</li><li>Insights and understanding of the data gained from applying <b>classification and clustering</b> techniques will be outlined. In particular visualizations of decision boundaries in classification using "most important variables". Similarly visualizations of PCA projections for understanding cluster separation will be detailed to illustrate cluster separation. </li><br>The talk will be presented in the iPython notebook and all relevant datasets and code will be supplied. Python Packages Used: (bs4, matplotlib, nltk, numpy, pandas, re, seaborn, sklearn, scipy, urllib2)
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/peadar-coyle.jpg" alt="Peadar Coyle">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=coyle_0></a>
+      <h3>Peadar Coyle</h3>
+    <div class="small"></div>
+    
+    <strong>Probabilistic Programming in Sports Analytics</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://lu.linkedin.com/in/peadarcoyle" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Probabilistic Programming and Bayesian Methods are called by some a new paradigm. There are numerous interesting applications such as to Quantitative Finance.<br>I'll discuss what probabilistic programming is, why should you care and how to use PyMC and PyMC3 from Python to implement these methods. I'll be applying these methods to studying the problem of 'rugby sports analytics' particularly how to model the winning team in the recent Six Nations in Rugby. I will discuss the framework and how I was able to quickly and easily produce an innovative and powerful model as a non-expert. Slides at: http://nbviewer.ipython.org/format/slides/github/springcoil/Probabilistic_Programming_and_Rugby/blob/master/Bayesian_Rugby.ipynb#/ 
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Peadar Coyle is an Energy Analyst at Vodafone Procurement Company in Luxembourg, where he is applying his analytical skills helping his colleagues better understand their data and their market.  Peadar is enthusiastic at driving innovation in new products, and developing novel applications of artificial intelligence. He has full-stack development experience, including design, building, and shipping of data, machine learning, and visualisation intensive products and solutions.  He regularly contributes to the Data Science community in Luxembourg by speaking at the local meetup. His open source contributions include Probabilistic Programming and Bayesian Methods for Hackers and some small contributions to Pandas. Peadar is a regular speaker throughout Europe on Data Analysis and contributes to the Python Community. This includes speaking at PyCon in Florence. Peadar has a Masters in Mathematics from the University of Luxembourg where he specialized in Statistics and Theoretical Machine Learning.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/christine-doig.jpg" alt="Christine Doig">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=doig_0></a>
+      <h3>Christine Doig</h3>
+    <div class="small">Continuum Analytics</div>
+    
+    <strong>Interactive Data Visualizations with Python</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://www.linkedin.com/in/christinedoigcardet" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Bokeh is a Python interactive visualization library that targets modern web browsers for presentation. It provides elegant, concise construction of novel graphics in the style of D3.js without having to write any JS. Attendees will learn how to get set up with Bokeh, key library and plotting concepts, how to plot basic glyphs, use high-level charts, style visualizations, configure plot tools, layer multiple plots, add interactions, deploy with the bokeh-server and embed plots in your applications. The tutorial will include notebooks and python scripts with exercises that will be solved during the session, with the aim of making the tutorial hands-on and interactive for attendees.<br><br>The talk is aimed at Web developers, Data Scientists and Python programmers interested in data visualizations for the browser. Advanced beginner or intermediate python skills would be nice to have to get the most out of the tutorial.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Christine Doig is a Data Scientist at Continuum Analytics. She holds a M.S. in Industrial Engineering from UPC, Barcelona, where she also started a Masters in Innovation and Research in Informatics, Data Mining and BI, before joining Continuum Analytics.<br><br> She is interested in Data Science and Python and loves to share her knowledge with others. She has taught tutorials and presented talks on conda, Blaze, Bokeh, scikit-learn and Data Science at PyCon, PyTexas, PyCon Spain, PyData Dallas, ScipyConf and local meetup groups like PyBCN, PyladiesBCN, APUG and ACM SIGKDD. Blogposts, talks, slides and videos can be found on her site http://chdoig.github.io/.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/ignacio-elola.jpg" alt="Ignacio Elola">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=elola_0></a>
+      <h3>Ignacio Elola</h3>
+    <div class="small">import.io</div>
+    
+    <strong>Python as a Framework for Analytics and Growth Hacking</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://uk.linkedin.com/pub/ignacio-elola-villar/63/5a2/94" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+        <a href="https://twitter.com/ignacio_elola" target="_blank" class="speaker__social__item speaker__social__item--twitter">
+          <img src="static/assets/social/twitter_logo.png">
+        </a>
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Python is the perfect language to build with little effort a framework to control and hack the growth of a company. Being import.io data scientist for the last 2 years, I've come across many different problems and needs on how to wrangle data, clean data, report on it and make predictions. In this talk I will cover all main analytics and data science needs of a start-up using Python, numpy, pandas, and sklearn. We will go through examples of how to wrangle analytics and KPIs in Python, and make simple models to do basic predictions that can really make the difference in the business world. For every use case I there will be snippets of code using IPython notebooks and some will be run as live demos.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Maths and complex systems nerd. I studied physics at Universidad Autonoma de Madrid, and done some research on systems biology in Spain and The Netherlands. Now I am interested in start-ups, new technologies and lean methodologies, still driven by curiosity and motivation. I am passionate about data democratization, data science and big data. I've been import.io Data Scientist for the last 2 years, where I am responsible of the analytics and data modelling for business and growth. I'v also been mentor in the first S2DS (Science to Data Science) course in the UK, a course for PhDs in Science to transition into real life Data Science.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/valentin-haenel.jpg" alt="Valentin Haenel">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=haenel_0></a>
+      <h3>Valentin Haenel</h3>
+    <div class="small">haenel.co</div>
+    
+    <strong>Blosc</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="http://de.linkedin.com/pub/valentin-haenel/b0/358/591" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+        <a href="https://twitter.com/esc___" target="_blank" class="speaker__social__item speaker__social__item--twitter">
+          <img src="static/assets/social/twitter_logo.png">
+        </a>
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Blosc is a fast metacodec with two main features: the shuffle filter and threading. The shuffle filter, which is implemented using SSE2 instructions, allows reordering bytes to reduce the complexity of certain datasets. Threading, on the other hand, allows parallelization of existing codecs, hence the term *metacodec*. Blosc was originally conceived to mitigate the problem of starving CPUs which results from the ever growing divide between clock speed and memory latency. Recently, it has become increasingly useful for other scenarios too, for example, out-of-core approaches and compressed in-memory storage.  Blosc has a small codebase and is implemented in C. Additionally, several pieces of interesting software, largely written in Python, have emerged that make use of Blosc, showcasing it's potential and exploring the new use-cases. Bcolz, for example, is a compressed in-memory and out-of-core container for numerical data. This talk is about Blosc and it's Python friends.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Valentin is a freelance software engineer interested in compression, exploiting the memory hierarchy for accelerated computation and out-of-core compute engines.  in the past, he has worked on psychophysics data analysis, large-scale brain simulations and analytical engines for business intelligence. Also, he wrote a book about git and has contributed to a selection open source projects. he currently resides in Berlin where he also co-organizes the monthly pydata-berlin meetups.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/peter-hoffmann.jpg" alt="Peter Hoffmann">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=hoffmann_0></a>
+      <h3>Peter Hoffmann</h3>
+    <div class="small">Blue Yonder</div>
+    
+    <strong>Indroduction to the PySpark DataFrame API</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Apache Spark is a computational engine for large-scale data processing. It is responsible for scheduling, distribution and monitoring applications which consist of many computational task across many worker machines on a computing cluster.<br><br>This talk will give an overview of the PySpark DataFrame API. While Spark core itself is written in Scala and runs on the JVM, PySpark exposes the Spark programming model to Python. The Spark DataFrame API was introduced in Spark 1.3. DataFrames envolve Spark's Resiliant Distributed Datasets model and are inspired by Pandas and R data frames. The API provides simplified operators for filtering, aggregating, and projecting over large datasets. The DataFrame API supports diffferent data sources like JSON datasources, Parquet files, Hive tables and JDBC database connections.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        I'm a Python Developer from Karlsruhe, Germany. I'm working as a Senior Web Developer at Blue Yonder building Predictive Applications.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/alexander-kagoshima.jpg" alt="Alexander Kagoshima">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=kagoshima_0></a>
+      <h3>Alexander Kagoshima</h3>
+    <div class="small">Pivotal</div>
+    
+    <strong>A Data Science Operationalization Framework</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://de.linkedin.com/pub/alexander-kagoshima/64/a52/942" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          In a lot of our Data Science customer engagements at Pivotal, the question comes up how to put the developed Data Science models into production. Usually, the code produced by the Data Scientist is a bunch of scripts that go from data loading over data cleansing to feature extraction and then model training. There is rarely much thought put into how the resulting model can be used by other pieces of software and this is generally not a good practice of encapsulating the Data Scientist's work for others to re-use.<br><br>What we as Data Scientists want is to create models that drive automated decision-making but there is clearly a mismatch to the above way of going about Big Data projects. Considering these challenges, we created a small prototype for a Data Science operationalization framework. This allows the Data Scientist to implement a model which is exposed by the framework as a REST API for easy access by software developers.<br><br>The difference to other predictive APIs is that this framework allows for automatic periodic retraining of the implemented model on incoming streaming data and is able to free the Data Scientist of some tedious work - like Ÿkeeping track of results for different modelling and feature engineering approaches, basic visualization of model performance and the creation of multiple model instances for different data streams. It is written by practitioning Data Scientists for Data Scientists.<br><br>Moreover, the framework will be released this year under an Open Source license which means that unlike other predictive APIs which only host one instance for Data Scientists to push their models to, this allows Data Scientists to completely control their own model codebase. In addition, it is deployable on Cloud Foundry and Heroku and can thus use some features of PaaS, which means less work in thinking about how to deploy and scale a model in production. <br><br>The model is implemented in Python and uses Flask to expose the REST API and the current prototype uses Redis as backend storage for the trained models. Models can be either custom-written or use existing Python ML libraries like scikit-learn. The framework is currently geared towards online learning, but it is possible to hook it up to a Spark backend to realize model training in batch on large datasets.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Alexander Kagoshima became the first member of Pivotal's EMEA Data Science Team after receiving a MSc (Dipl.-Ing.) in Business and Software Engineering from TU Berlin. While working towards his degree, he already started applying his focus area of Machine Learning to real-world problems. He used techniques from this field to analyze and predict malfunctions in a test fleet of fuel-cell cars from Volkswagen as well as optimizing wind-turbine control systems in a research project at Siemens. As Data Scientist at Pivotal he mainly develops large-scale Machine Learning systems for customers of Pivotal's Big Data Suite across different industries and use-cases, with a special focus on network security, fraud detection and Internet-of-Things. In his spare time, he searches for new ways to analyze soccer with statistical methods and likes to see the German soccer team winning.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/tobias-kuhn.jpg" alt="Tobias Kuhn">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=kuhn_0></a>
+      <h3>Tobias Kuhn</h3>
+    <div class="small">Trademob</div>
+    
+    <strong>Real-Time Monitoring of Distributed Systems</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Instrumentation has seen explosive adoption on the cloud in recent years. With the rise of micro-services we are now in an era where we measure the most trivial events in our systems. At Trademob, a mobile DSP with upwards of 125k requests per second across +700 instances, we generate and collect millions of  time-series data points. Gaining key insights from this data has proven to be a huge challenge.<br><br>Outlier and Anomaly detection are two techniques that help us comprehend the behavior of our systems and allow us to take actionable decisions with little or no human intervention. Outlier Detection is the identification of misbehavior across multiple subsystems and/or aggregation layers on a machine level, whereas Anomaly Detection lets us identify issues by detecting deviations against normal behavior on a temporal level. The analysis of these deviations is simplified through the use of a time and memory efficient data structure called a t-digest. With t-digests we are able to store error distributions with high accuracy, especially for extreme quantile values.<br><br>At Trademob, we developed a Python-based real-time monitoring system to conquer those challenges in order to reduce false positive alerts and increase overall business performance. By correlating a multitude of metrics we can determine system interdependencies, preemptively detect issues and also gain key insights to causality. This session will provide insights into both the system’s architecture and the algorithms used to detect unwanted behaviors.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Tobias is a physicist and works at Trademob GmbH as a Data Analyst.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/mike-m-ller.jpg" alt="Mike Müller">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=mueller_0></a>
+      <h3>Mike Müller</h3>
+    <div class="small">Python Academy</div>
+    
+    <strong>Measure, don't Guess - How to find out if and where to optimize</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Python is a great language. But it can be slow compared to other languages for certain types of tasks. If applied appropriately, optimization may reduce program runtime or memory consumption considerably. But this often comes at a price. Optimization can be time consuming and the optimized program may be more complicated. This, in turn, means more maintenance effort. How do you find out if it is worthwhile to optimize your program? Where should you start? This tutorial will help you to answer these questions. You will learn how to find  an optimization strategy based on quantitative and objective criteria.<br>You will experience that one's gut feeling what to optimize is often wrong.<br><br>The solution to this problem is: „Measure, Measure, and Measure!“. You will learn how to measure program run times as well as profile CPU and memory.<br>There are great tools available. You will learn how to use some of them. Measuring is not easy because, by definition, as soon as you start to measure, you influence your system. Keeping this impact as small as possible is important. Therefore, we will cover different measuring techniques.<br><br>Furthermore, we will look at algorithmic improvements. You will see that the right data structure for the job can make a big difference. Finally, you will learn about different caching techniques.<br><br><a href="https://goo.gl/uXKJt0">Tutorial prerequisites and instructions.</a>
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/ronert-obst.jpg" alt="Ronert Obst">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=obst_0></a>
+      <h3>Ronert Obst</h3>
+    <div class="small">Pivotal</div>
+    
+    <strong>Smart cars of tomorrow: real-time driving patterns</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://de.linkedin.com/in/ronert" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          In recent years, the adoption of electric cars has resulted in a desperate need from carmakers for accurate range prediction. In addition, fuel efficiency is of increasing concern due to today’s ever-rising fuel costs. In this talk, we will outline a machine learning framework for real-time data analysis to demonstrate how live data collected from cars can be used to provide valuable information for range prediction and smart navigation.<br><br>For our solution, we use a Bluetooth dongle that connects to a standard OBD II car diagnostics data port. Together with a self-developed iOS app we can then stream OBD II data into our framework’s big data infrastructure for long-term storage, batch training processes, and subsequent real-time analysis. We will show how we used different open-source technologies (Spark. Spring XD, Python and others) to stream, store, and reason over this data in a scalable way.<br><br>In particular, we will focus on how we designed the machine learning framework to derive individual driver ‘fingerprints’ from variables such as speed, acceleration, driving times, and location, taken from historical data. These fingerprints are then used within the real-time prediction framework to determine final journey destination and driving behavior in real time during the journey. We will also look at how other public and free data sources such as traffic information, weather, and fuel station locations could be used to further improve the accuracy and scope of our models.<br><br>This talk is intended to demonstrate pioneering work in the space of big data and the connected car. We will take into consideration the insights we have gained from building this prototype, both into infrastructure and analysis, to give our view on what such real-time driving intelligence applications of tomorrow could look like.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Ronert got his MSc in Statistics at Ludwig-Maximilians-Universität in Munich and now works as a Data Scientist at Pivotal (http://www.pivotal.io ) in Berlin. His focus is on applying algorithms from machine learning and statistics to large data sets.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/philipp-pahl.jpg" alt="Philipp Pahl">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=pahl_0></a>
+      <h3>Philipp Pahl</h3>
+    <div class="small"></div>
+    
+    <strong>Peachbox: Agile and Accessible Big ETL Framework</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://de.linkedin.com/in/philipppahl" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Today data is generated in greater volumes than ever before. In addition to vast amounts of legacy data, new data sources such as application logs or social media complicate data-processing challenges. The ultimate goal is to gain insights and derive prescriptions to support decisions or develop predictive apps. On the other hand preceding steps of data integration and warehousing allowing for exploration and application of data are usually hard and require expert knowledge in order to design and implement it.<br>Peachbox solves this by providing an agile and accessible open source solution to the Big ETL process. Peachbox is a Python framework based on and conforming to the ‘Lambda Architecture’, which in turn is an abstracted pattern providing principles and best practices for real-time and scalable data systems. The main underlying technology is PySpark.<br>In the tutorial we will set up Peachbox and implement a general and extensible Big ETL system. Furthermore we will explore potential applications.<br><br><a href="https://goo.gl/XLShxL">Tutorial prerequisites and instructions.</a>
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/thomas-pfaff.jpg" alt="Thomas Pfaff">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=pfaff_0></a>
+      <h3>Thomas Pfaff</h3>
+    <div class="small">Blue Yonder</div>
+    
+    <strong>Advanced Data Storage</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://de.linkedin.com/pub/thomas-pfaff/78/2a3/350" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          In this tutorial we will give an introduction to two advanced data storage formats. HDF5 and NetCDF were designed to efficiently store the results of supercomputing applications like climate model outputs, or the data streams received from NASA's fleet of earth observing satellites. They provide a lot of optimizations concerning transparent file compression, speed of access or working with multiple files as if it were one large data set.<br>A couple of Python libraries exist that allow fast and pythonic access to these formats.<br>We will show you how to create and access these types of files from Python, and how to use their advanced features to tune them for maximum efficiency.<br><br><a href="https://goo.gl/NohXVI">Tutorial prerequisites and instructions.</a>
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Thomas Pfaff recieved his Diploma degree in Environmental Engineering in 2004 and his PhD from Stuttgart University in 2012 where he had been working on improving precipitation estimates from weather radar data. Therefore, one of his specialties is the processing and analysis of large amounts of environmental sensing data. Since 2014 he is a member of the core data science algorithms team at Blue Yonder GmbH, Karlsruhe
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/jose-luis-lopez-pino.jpg" alt="Jose Luis Lopez Pino">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=pino_0></a>
+      <h3>Jose Luis Lopez Pino</h3>
+    <div class="small">GetYourGuide</div>
+    
+    <strong>Lessons learned from applying PyData to our marketing organization</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+        <a href="https://de.linkedin.com/in/joseluislopezpino" target="_blank" class="speaker__social__item speaker__social__item--linkedin">
+          <img src="static/assets/social/linkedin_logo.png">
+        </a>
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          For all e-commerce sites, marketing is a big part of the business and marketing efficiency and effectiveness are critical to their success. Companies must make many data-driven decisions in order to reach customers that their competitors don’t, maximize the revenue of each click, decide wisely what are the costs to cut, enter new markets, etc.<br><br>GetYourGuide has been working for more than two years on building a marketing intelligence that allows us growing our marketing efforts in the travel market without building a huge team or buying extremely expensive tools.<br><br>All the decisions are supported by a dedicated system that runs on the PyData stack that allows marketers to extract valuable insights from data and performs critical marketing tasks: keyword mining, campaign automation, predictive modeling, omni-channel marketing data integration, customer segmentation, pattern mining from click data, etc.<br><br>As a result of this, we were able to scale up 3 times our marketing efforts, launch campaigns in 13 markets and automate 75% of our work only in the last 8 months. But this is not the end of our journey, GetYourGuide is building a Data Science team to understand travelers needs and wants and make our Customers' trips amazing.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Jose Luis Lopez Pino is part of the Data Science team of GetYourGuide. Before that, he worked as Business Intelligence consultant and joined the Information Technology For Business Intelligence high quality education program. His new venture is Smergy, an initiative project to revolutionize energy efficiency using big data supported by the European Institute of Innovation and Technology.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+        
+
+<style>
+@media (max-width: 600px) {
+  .speaker-thumb {
+      width:80px;
+      margin-left:3px;
+   }
+   .speaker-content {
+       margin-left: 100px;
+   }
+}
+@media (max-width: 350px) {
+  .speaker-thumb {
+      width:60px;
+      margin-left:0px;
+   }
+   .speaker-content {
+       margin-left: 70px;
+   }
+}
+</style>
+<div class="speaker">
+  <div class="speaker-thumb">
+    <img src="static/assets/speaker/nakul-selvaraj.jpg" alt="Nakul Selvaraj">
+  </div>
+  <div class="speaker-content">
+      <a class="anchor" id=selvaraj_0></a>
+      <h3>Nakul Selvaraj</h3>
+    <div class="small">Trademob</div>
+    
+    <strong>Real-Time Monitoring of Distributed Systems</strong>
+    
+    <br>
+    <a href="#" class="speaker__toggle speaker__toggle--abstract">Abstract</a>
+    |
+    <a href="#" class="speaker__toggle speaker__toggle--bio">Bio</a>
+    
+    <div class="speaker__social">
+      
+      
+    </div>
+
+    
+      <div class="speaker__abstract">
+        
+        <div class="speaker__abstract__text">
+          Instrumentation has seen explosive adoption on the cloud in recent years. With the rise of micro-services we are now in an era where we measure the most trivial events in our systems. At Trademob, a mobile DSP with upwards of 125k requests per second across +700 instances, we generate and collect millions of  time-series data points. Gaining key insights from this data has proven to be a huge challenge.<br><br>Outlier and Anomaly detection are two techniques that help us comprehend the behavior of our systems and allow us to take actionable decisions with little or no human intervention. Outlier Detection is the identification of misbehavior across multiple subsystems and/or aggregation layers on a machine level, whereas Anomaly Detection lets us identify issues by detecting deviations against normal behavior on a temporal level. The analysis of these deviations is simplified through the use of a time and memory efficient data structure called a t-digest. With t-digests we are able to store error distributions with high accuracy, especially for extreme quantile values.<br><br>At Trademob, we developed a Python-based real-time monitoring system to conquer those challenges in order to reduce false positive alerts and increase overall business performance. By correlating a multitude of metrics we can determine system interdependencies, preemptively detect issues and also gain key insights to causality. This session will provide insights into both the system’s architecture and the algorithms used to detect unwanted behaviors.
+        </div>
+      </div>
+    
+    
+    <div class="speaker__bio">
+      <div class="speaker__bio__text">
+        Selvaraj works at Trademob GmbH as a Software Engineer in R&D. His work focuses on Data Engineering and Monitoring.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+    </div>
+  </div>
+  <div class="large-2 columns">
+    <h4 class="text-center">Sponsors</h4>
+    <hr>
+    <h5 class="text-center">Silver</h5>
+    <a href="http://www.blue-yonder.com/" target="_blank">
+      <img src="static/assets/sponsors/blue_yonder_logo.jpg" alt="Blue Yonder Logo">
+    </a>
+    <a href="http://python-verband.org/" target="_blank">
+      <img src="static/assets/sponsors/python_software_verband.png" alt="Python Software Verband e.V.">
+    </a>
+    <h5 class="text-center">Supporting</h5>
+    <a href="http://www.python-academy.com/" target="_blank">
+      <img src="static/assets/sponsors/python_academy_logo.png" alt="Python Academy Logo">
+    </a>
+    <a href="http://www.unbelievable-machine.com/" target="_blank">
+      <img src="static/assets/sponsors/um-logo.jpg" alt="The Unbelievable Machine Company Logo">
+    </a>
+    <a href="http://www.eyequant.com/" target="_blank">
+      <img src="static/assets/sponsors/eyequant_logo.png" alt="EyeQuant Logo">
+    </a>
+    <a href="https://plot.ly/" target="_blank">
+      <img src="static/assets/sponsors/plotly.png" alt="plotly Logo">
+    </a>
+    <h5 class="text-center">Founding Sponsor</h5>
+    <a href="http://continuum.io/" target="_blank">
+      <img src="static/assets/sponsors/ContinuumAnalyticsLogo.png" alt="Continuum Analytics Logo">
+    </a>
+    <h5 class="text-center">Location Sponsor</h5>
+    <a href="http://www.betahaus.com/berlin" target="_blank">
+      <img src="static/assets/sponsors/betahaus-logo-retina.png" alt="Betahaus Logo">
+    </a>
+    <h5 class="text-center"><a href="http://pydata.org/sponsor/info">Become a sponsor</a></h5>
+</div>
+
+</div>
+
+
+<footer class="row">
+    <hr/>
+    <div class="large-8 columns">
+        <h5>The PyData Conference Series is brought to you by <a href="http://numfocus.org/">NumFOCUS Foundation</a>. </h5>
+    </div>
+    <div class="large-2 column">
+        <a href="#top">Back to top</a>
+    </div>
+</footer>
+  </body>
+</html>
+
