@@ -74,7 +74,7 @@ class TreeHelper(object):
                          attribs=dict(e.attrib),
                          element=e if keep_element_refs else None)
                 path.append(n)
-                if not self.textonly or e.text.strip():
+                if not self.textonly or (e.text or '').strip():
                     yield tuple(path)
 
                 children_counts = defaultdict(int)

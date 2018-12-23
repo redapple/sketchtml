@@ -114,57 +114,78 @@ class TagPathClustering(object):
                  with_classes=True,
                  with_id=True,
                  with_attr_names=False,
-                 strip_digits=False):
+                 strip_digits=False,
+                 ignore_classes=None,
+                 text_only=False):
+
         self.htmltext = htmltext
         self.with_classes=with_classes
         self.with_id=with_id
         self.with_attr_names=with_attr_names
         self.strip_digits = strip_digits
+        self.ignore_classes = ignore_classes
+        self.text_only = text_only
 
-    def clusters(self):
+        self._node_repr = partial(TagPathClustering.node_repr,
+                             with_classes=self.with_classes,
+                             with_id=self.with_id,
+                             with_attr_names=self.with_attr_names,
+                             strip_digits=self.strip_digits,
+                             ignore_classes=self.ignore_classes)
+
+    def clusters(self, min_repeat=2, max_repeat=None):
         self._build_tagpaths()
         self.simhelper = TagPathSimilarity(self.tagpaths)
 
         repeating_tagpaths = [
             tp for tp, cnt in Counter(self.tagpaths).most_common()
-            if cnt > 1
+            if cnt >= min_repeat and (max_repeat is None or cnt <= max_repeat)
         ]
         return self._spectral_clustering(repeating_tagpaths)
 
-    def _spectral_clustering(self, repeating_tagpaths):
-        l = len(repeating_tagpaths)
+    def _affinity_matrix(self, tagpaths):
+        l = len(tagpaths)
         matrix = np.zeros((l, l))
-
-        for a, b in combinations(repeating_tagpaths, 2):
-            ia, ib = repeating_tagpaths.index(a), repeating_tagpaths.index(b)
-            matrix[ia, ib] = self.simhelper.similarity(a, b, epsilon=10)
+        for a, b in combinations(tagpaths, 2):
+            ia, ib = tagpaths.index(a), tagpaths.index(b)
+            matrix[ia, ib] = self.simhelper.similarity(a, b, epsilon=5)
             matrix[ib, ia] = matrix[ia, ib]
             matrix[ia, ia] = 1
             matrix[ib, ib] = 1
         matrix = np.exp(matrix / matrix.std())
+        return matrix
+
+    def _spectral_clustering(self, tagpaths):
+        matrix = self._affinity_matrix(tagpaths)
 
         clustering = SpectralClustering(affinity='precomputed')
         pred = clustering.fit_predict(matrix)
+
         clusters = defaultdict(list)
         for i, p in enumerate(pred):
-            clusters[p].append(repeating_tagpaths[i])
+            clusters[p].append(tagpaths[i])
         for p in clusters.keys():
             clusters[p] = sorted(clusters[p])
+
+        self.affinity_matrix = matrix
+
         return clusters
 
     def plot_affinity_matrix(self):
         plt.matshow(self.affinity_matrix)
 
     @staticmethod
-    def node_repr(node, with_classes=False, with_id=False, with_attr_names=False, strip_digits=False):
+    def node_repr(node, with_classes=False, with_id=False, with_attr_names=False, strip_digits=False, ignore_classes=None):
         classes = None
         ids = None
         attr_names = None
         attribs = node.attribs
         if with_classes:
             classes = attribs.get('class', '').split()
-            if strip_digits:
-                classes = [re.sub(r'\d+$', '', cl) for cl in classes]
+            if ignore_classes:
+                classes = [cl for cl in classes
+                           if cl not in ignore_classes]
+
         if with_id:
             ids = attribs.get('id')
         if with_attr_names:
@@ -172,15 +193,16 @@ class TagPathClustering(object):
         output = node.tag
 
         if ids:
-            if strip_digits:
+            if strip_digits and re.sub(r'\d+', '', ids) != ids:
                 ids = re.sub(r'\d+', '', ids)
-                output += '[id*="{}"]'.format(ids)
+                output += '#*{}'.format(ids)
             else:
                 output += '#'+ids
 
         if classes:
-            if strip_digits:
-                output += ''.join('[class*="{}"]'.format(cls) for cls in sorted(classes))
+            if strip_digits and [re.sub(r'\d+', '', cl) for cl in classes] != classes:
+                classes = set(re.sub(r'\d+', '', cl) for cl in classes)
+                output += ''.join('.*{}'.format(cls) for cls in sorted(classes))
             else:
                 output += ''.join('.{}'.format(cls) for cls in sorted(classes))
 
@@ -189,19 +211,13 @@ class TagPathClustering(object):
         return output
 
     def _build_tagpaths(self):
-        _node_repr = partial(TagPathClustering.node_repr,
-                             with_classes=self.with_classes,
-                             with_id=self.with_id,
-                             with_attr_names=self.with_attr_names,
-                             strip_digits=self.strip_digits)
-
-        self.treehelper = TreeHelper(textonly=False)
+        self.treehelper = TreeHelper(textonly=self.text_only)
         self.treehelper.tagpath_join = '/'
         self.tagpaths = []
         self.tagpath_nodes = defaultdict(list)
         for nodes in self.treehelper.iter_nodepaths(self.htmltext, keep_element_refs=True):
             if nodes[-1].tag in ('script', 'style'):
                 continue
-            tagpath = '/' + '/'.join(map(_node_repr, nodes))
+            tagpath = '/' + '/'.join(map(self._node_repr, nodes))
             self.tagpaths.append(tagpath)
             self.tagpath_nodes[tagpath].append(nodes)
